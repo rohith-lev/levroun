@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     question: "Are classes online or offline?",
-    answer: "We offer both. Our Chennai campus provides a high-intensity offline experience, while our digital platform offers a premium remote learning environment.",
+    answer: "We offer both. Our Erode campus provides a high-intensity offline experience, while our digital platform offers a premium remote learning environment.",
   },
 ];
 

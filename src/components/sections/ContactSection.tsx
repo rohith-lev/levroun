@@ -19,9 +19,9 @@ export default function ContactSection() {
 
           <div className="space-y-8">
             {[
-              { label: "Our Campus", value: "123 Tech Park, Chennai, Tamil Nadu" },
-              { label: "Call Us", value: "+91 93420 08797" },
-              { label: "Email Support", value: "admissions@winora.com" },
+              { label: "Our Campus", value: "54/7, TVR Corner, Perundurai Old Busstand, Erode(DT), 638052" },
+              { label: "Call Us", value: "+91 89398 06110 , +91 93637 57078" },
+              { label: "Email Support", value: "info@winora.tech" },
             ].map((item) => (
               <div key={item.label}>
                 <div className="text-xs font-bold uppercase tracking-widest text-navy-900/40 mb-1">{item.label}</div>

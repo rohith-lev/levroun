@@ -59,7 +59,7 @@ export default function PlacementsPage() {
       <PlacementSection />
 
       {/* Testimonials */}
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={[]} />
 
       {/* CTA */}
       <section className="py-24 bg-navy-900">

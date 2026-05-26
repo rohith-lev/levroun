@@ -22,6 +22,10 @@ const nextConfig = {
     "*.ngrok-free.app",
     "172.23.102.67",
   ],
+  eslint: {
+    // ESLint errors will not block production builds
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

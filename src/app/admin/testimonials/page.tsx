@@ -5,8 +5,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Edit2, Loader2, Save, X, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+interface Testimonial {
+  _id: string;
+  name: string;
+  role: string;
+  story: string;
+  image: string;
+  isVisible: boolean;
+  order: number;
+}
+
 export default function TestimonialsAdmin() {
-  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
@@ -192,6 +202,7 @@ export default function TestimonialsAdmin() {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   {t.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full object-cover border border-white/20" />
                   )}
                   <div>

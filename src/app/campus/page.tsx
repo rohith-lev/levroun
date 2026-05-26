@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Campus | WINORA Tech Academy",
-  description: "Explore our 1,100 sq ft premium tech campus in Chennai. World-class infrastructure designed for focused learning.",
+  description: "Explore our 1,100 sq ft premium tech campus in Erode. World-class infrastructure designed for focused learning.",
 };
 
 const amenities = [
@@ -36,14 +36,14 @@ export default function CampusPage() {
         <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest text-white/60">Chennai · Tamil Nadu</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-white/60">Erode · Tamil Nadu</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 max-w-4xl leading-[1.05]">
             A Campus Built for{" "}
             <span className="text-orange-500">World-Class Work.</span>
           </h1>
           <p className="text-lg text-white/50 font-light max-w-xl leading-relaxed">
-            1,100 sq ft of premium learning infrastructure in Chennai&apos;s tech corridor.
+            1,100 sq ft of premium learning infrastructure in Erode&apos;s tech corridor.
           </p>
         </div>
       </section>
@@ -87,11 +87,11 @@ export default function CampusPage() {
       <section className="py-24 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl font-bold tracking-tight text-navy-900 mb-6">Visit Us in <span className="text-orange-500">Chennai.</span></h2>
+            <h2 className="text-4xl font-bold tracking-tight text-navy-900 mb-6">Visit Us in <span className="text-orange-500">Erode.</span></h2>
             <div className="space-y-6 mb-10">
               {[
-                { label: "Address", value: "123 Tech Park, Chennai, Tamil Nadu 600001" },
-                { label: "Phone", value: "+91 93420 08797" },
+                { label: "Address", value: "54/7, TVR Corner, Perundurai Old Busstand, Erode(DT), 638052" },
+                { label: "Phone", value: "+91 89398 06110 · +91 93637 57078" },
                 { label: "Hours", value: "Mon–Sat · 9:00 AM – 8:00 PM" },
               ].map((item) => (
                 <div key={item.label}>
@@ -112,7 +112,7 @@ export default function CampusPage() {
                 </svg>
               </div>
               <p className="font-bold text-navy-900">WINORA Tech Academy</p>
-              <p className="text-sm text-foreground/50">Chennai, Tamil Nadu</p>
+              <p className="text-sm text-foreground/50">Erode, Tamil Nadu</p>
             </div>
           </div>
         </div>

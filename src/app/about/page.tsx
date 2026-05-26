@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About | WINORA Tech Academy",
-  description: "WINORA Tech Academy — founded in Chennai to bridge the gap between education and industry. Our mission: produce world-class engineers from India.",
+  description: "WINORA Tech Academy — founded in Erode to bridge the gap between education and industry. Our mission: produce world-class engineers from India.",
 };
 
 const stats = [
@@ -57,7 +57,7 @@ export default function AboutPage() {
         <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest text-white/60">Chennai · Est. 2022</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-white/60">Erode · Est. 2022</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-8 max-w-5xl leading-[1.05]">
             We Build Engineers{" "}

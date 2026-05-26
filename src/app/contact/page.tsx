@@ -20,9 +20,9 @@ const programs = [
 ];
 
 const contactInfo = [
-  { icon: MapPin, label: "Campus", value: "123 Tech Park, Chennai, Tamil Nadu 600001" },
-  { icon: Phone, label: "Call Us", value: "+91 93420 08797" },
-  { icon: Mail, label: "Email", value: "admissions@winora.com" },
+  { icon: MapPin, label: "Campus", value: "54/7, TVR Corner, Perundurai Old Busstand, Erode(DT), 638052" },
+  { icon: Phone, label: "Call Us", value: "+91 89398 06110 · +91 93637 57078" },
+  { icon: Mail, label: "Email", value: "info@winora.tech" },
   { icon: Clock, label: "Hours", value: "Mon–Sat · 9 AM – 8 PM" },
 ];
 

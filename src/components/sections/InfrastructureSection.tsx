@@ -73,7 +73,7 @@ export default function InfrastructureSection({ data }: InfraSectionProps) {
           )}
         </h2>
         <p className="text-lg text-white/60 font-light leading-relaxed">
-          {content ? content.description : "Located in the heart of Chennai's tech corridor. Our campus is designed for focused learning, collaboration, and high-intensity production work."}
+          {content ? content.description : "Located in the heart of Erode's tech corridor. Our campus is designed for focused learning, collaboration, and high-intensity production work."}
         </p>
       </div>
 

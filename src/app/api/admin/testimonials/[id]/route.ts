@@ -15,8 +15,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     
     if (!testimonial) return new NextResponse('Not Found', { status: 404 });
     return NextResponse.json(testimonial);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -30,7 +31,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     
     if (!testimonial) return new NextResponse('Not Found', { status: 404 });
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

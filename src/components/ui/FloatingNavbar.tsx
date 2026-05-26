@@ -18,7 +18,8 @@ const navLinks = [
   { name: "About", href: "/about" },
   { name: "Courses", href: "/programs", dropdown: coursesDropdown },
   { name: "Campus", href: "/campus" },
-  { name: "Highlights", href: "/highlights" },
+  { name: "Achievements", href: "/achievements" },
+  { name: "Insights", href: "/insights" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -62,7 +63,7 @@ export default function FloatingNavbar() {
           {/* Logo */}
           <Link href="/" className="relative flex items-center gap-2.5 shrink-0">
             <Image
-              src="/image/WhatsApp_Image_2026-05-17_at_6.10.27_PM-removebg-preview.png"
+              src="/image/logo.png"
               alt="WINORA Logo"
               width={44}
               height={44}
@@ -194,7 +195,7 @@ export default function FloatingNavbar() {
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
               <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
                 <Image
-                  src="/image/WhatsApp_Image_2026-05-17_at_6.10.27_PM-removebg-preview.png"
+                  src="/image/logo.png"
                   alt="WINORA Logo"
                   width={44}
                   height={44}

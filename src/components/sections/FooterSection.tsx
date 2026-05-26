@@ -273,7 +273,7 @@ export default function FooterSection() {
                   <MapPin className="w-3.5 h-3.5" />
                 </div>
                 <div className="text-xs text-white/60 font-light leading-normal transition-colors duration-300 group-hover:text-white">
-                  123 Tech Park, Chennai, Tamil Nadu
+                  54/7, TVR Corner, Perundurai Old Busstand, Erode(DT), 638052
                 </div>
               </div>
               
@@ -282,7 +282,7 @@ export default function FooterSection() {
                   <Phone className="w-3.5 h-3.5" />
                 </div>
                 <div className="text-xs text-white/60 font-light transition-colors duration-300 group-hover:text-white">
-                  +91 93420 08797
+                  +91 89398 06110 · +91 93637 57078
                 </div>
               </div>
 
@@ -291,7 +291,7 @@ export default function FooterSection() {
                   <Mail className="w-3.5 h-3.5" />
                 </div>
                 <div className="text-xs text-white/60 font-light transition-colors duration-300 group-hover:text-white">
-                  admissions@winora.com
+                  info@winora.tech
                 </div>
               </div>
             </div>
