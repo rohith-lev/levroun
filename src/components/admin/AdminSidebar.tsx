@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
   MessageSquare,
@@ -42,13 +41,9 @@ export default function AdminSidebar({ mobileOpen, onCloseMobile }: Props) {
           <GraduationCap className="w-4 h-4 text-white" />
         </div>
         {!collapsed && (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-sm font-bold text-white tracking-wide"
-          >
-            WINORA CMS
-          </motion.span>
+          <span className="text-sm font-bold text-white tracking-wide transition-opacity duration-200">
+            INZOVATE CMS
+          </span>
         )}
       </div>
 
@@ -58,9 +53,8 @@ export default function AdminSidebar({ mobileOpen, onCloseMobile }: Props) {
           const active = pathname === href || pathname.startsWith(href + '/');
           return (
             <Link key={href} href={href} onClick={onCloseMobile}>
-              <motion.div
-                whileHover={{ x: 2 }}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 cursor-pointer ${
+              <div
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 cursor-pointer hover:translate-x-0.5 ${
                   active
                     ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -68,21 +62,12 @@ export default function AdminSidebar({ mobileOpen, onCloseMobile }: Props) {
               >
                 <Icon className="w-4 h-4 flex-shrink-0" />
                 {!collapsed && (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="truncate"
-                  >
-                    {label}
-                  </motion.span>
+                  <span className="truncate transition-opacity duration-200">{label}</span>
                 )}
                 {active && !collapsed && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="ml-auto w-1.5 h-1.5 rounded-full bg-orange-500"
-                  />
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-orange-500" />
                 )}
-              </motion.div>
+              </div>
             </Link>
           );
         })}
@@ -103,9 +88,9 @@ export default function AdminSidebar({ mobileOpen, onCloseMobile }: Props) {
           onClick={() => setCollapsed(!collapsed)}
           className="hidden lg:flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-slate-500 hover:text-white hover:bg-white/5 transition-all duration-150"
         >
-          <motion.div animate={{ rotate: collapsed ? 180 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronLeft className="w-4 h-4" />
-          </motion.div>
+          <ChevronLeft
+            className={`w-4 h-4 transition-transform duration-200 ${collapsed ? 'rotate-180' : ''}`}
+          />
           {!collapsed && <span>Collapse</span>}
         </button>
       </div>
@@ -115,43 +100,33 @@ export default function AdminSidebar({ mobileOpen, onCloseMobile }: Props) {
   return (
     <>
       {/* Desktop sidebar */}
-      <motion.aside
-        animate={{ width: collapsed ? 64 : 220 }}
-        transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className="hidden lg:flex flex-col flex-shrink-0 bg-[#0D1117] border-r border-white/10 h-screen sticky top-0 overflow-hidden"
+      <aside
+        style={{ width: collapsed ? 64 : 220 }}
+        className="hidden lg:flex flex-col flex-shrink-0 bg-[#0D1117] border-r border-white/10 h-screen sticky top-0 overflow-hidden transition-all duration-200"
       >
         {sidebarContent}
-      </motion.aside>
+      </aside>
 
       {/* Mobile overlay sidebar */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+      {mobileOpen && (
+        <>
+          <div
+            onClick={onCloseMobile}
+            className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          />
+          <aside
+            className="fixed left-0 top-0 bottom-0 w-[220px] bg-[#0D1117] border-r border-white/10 z-50 lg:hidden flex flex-col transition-transform duration-200"
+          >
+            <button
               onClick={onCloseMobile}
-              className="fixed inset-0 bg-black/60 z-40 lg:hidden"
-            />
-            <motion.aside
-              initial={{ x: -220 }}
-              animate={{ x: 0 }}
-              exit={{ x: -220 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="fixed left-0 top-0 bottom-0 w-[220px] bg-[#0D1117] border-r border-white/10 z-50 lg:hidden flex flex-col"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white"
             >
-              <button
-                onClick={onCloseMobile}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-              {sidebarContent}
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+              <X className="w-4 h-4" />
+            </button>
+            {sidebarContent}
+          </aside>
+        </>
+      )}
     </>
   );
 }

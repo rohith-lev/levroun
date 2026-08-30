@@ -27,12 +27,25 @@ export default function ContactsPage() {
 
   const fetchContacts = useCallback(async () => {
     setLoading(true);
-    const params = new URLSearchParams({ search, status: statusFilter, page: String(page), limit: String(limit) });
-    const res = await fetch(`/api/admin/contacts?${params}`);
-    const data = await res.json();
-    setContacts(data.contacts ?? []);
-    setTotal(data.total ?? 0);
-    setLoading(false);
+    try {
+      const params = new URLSearchParams({ search, status: statusFilter, page: String(page), limit: String(limit) });
+      const res = await fetch(`/api/admin/contacts?${params}`);
+      if (!res.ok) {
+        setContacts([]);
+        setTotal(0);
+        setLoading(false);
+        return;
+      }
+      const data = await res.json().catch(() => ({ contacts: [], total: 0 }));
+      setContacts(data.contacts ?? []);
+      setTotal(data.total ?? 0);
+    } catch (err) {
+      console.error('Fetch contacts error:', err);
+      setContacts([]);
+      setTotal(0);
+    } finally {
+      setLoading(false);
+    }
   }, [search, statusFilter, page]);
 
   useEffect(() => { fetchContacts(); }, [fetchContacts]);

@@ -1,12 +1,10 @@
 'use client';
 
 import React from "react";
-import FloatingNavbar from "@/components/ui/FloatingNavbar";
-import FooterSection from "@/components/sections/FooterSection";
-import FloatingBackground from "@/components/ui/FloatingBackground";
-import VisitorTracker from "@/components/ui/VisitorTracker";
-import PopupBanner from "@/components/ui/PopupBanner";
 import { usePathname } from "next/navigation";
+import FloatingNavbar from "@/components/ui/FloatingNavbar";
+import InzovateFooter from "@/components/sections/InzovateFooter";
+import { DemoModalProvider } from "@/context/DemoModalContext";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -17,14 +15,14 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col overflow-x-hidden">
-      <FloatingBackground />
-      <FloatingNavbar />
-      <div className="relative flex-1">{children}</div>
-      <FooterSection />
-      {/* Analytics & Campaigns — invisible, must be outside admin routes */}
-      <VisitorTracker />
-      <PopupBanner />
-    </main>
+    <DemoModalProvider>
+      <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-white selection:bg-blue-500/20 selection:text-blue-700">
+        <FloatingNavbar />
+        <main className="relative flex-1">
+          {children}
+        </main>
+        <InzovateFooter />
+      </div>
+    </DemoModalProvider>
   );
 }

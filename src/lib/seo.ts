@@ -10,7 +10,7 @@ export function generateMetadata(config: {
 }): Metadata {
   const { title, description, keywords, canonical, ogImage } = config;
   return {
-    title: `${title} | Winora Tech Academy`,
+    title: `${title} | LEVROUN INDIA`,
     description,
     keywords: keywords?.join(', '),
     alternates: { canonical },
@@ -18,12 +18,12 @@ export function generateMetadata(config: {
       title,
       description,
       url: canonical,
-      siteName: 'Winora Tech Academy',
-      images: [{ url: ogImage || '/image/hero/hero-1.jpg' }],
+      siteName: 'LEVROUN INDIA',
+      images: [{ url: ogImage || '/image/levroun-logo.png' }],
       locale: 'en_IN',
       type: 'website'
     },
-    twitter: { card: 'summary_large_image', title, description, images: [ogImage || '/image/hero/hero-1.jpg'] },
+    twitter: { card: 'summary_large_image', title, description, images: [ogImage || '/image/levroun-logo.png'] },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } }
   };
 }
@@ -31,42 +31,25 @@ export function generateMetadata(config: {
 export function generateLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'EducationalOrganization',
+    '@type': 'Corporation',
     name: BUSINESS_INFO.name,
     alternateName: BUSINESS_INFO.shortName,
-    url: 'https://winoratech.com',
-    logo: 'https://winoratech.com/image/logo.png',
+    identifier: BUSINESS_INFO.cin,
+    url: BUSINESS_INFO.website,
+    logo: `${BUSINESS_INFO.website}/image/logo.png`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: BUSINESS_INFO.address,
-      addressLocality: BUSINESS_INFO.city,
+      streetAddress: BUSINESS_INFO.addressPrimary,
+      addressLocality: BUSINESS_INFO.cityPrimary,
       addressRegion: BUSINESS_INFO.state,
-      postalCode: BUSINESS_INFO.pincode,
+      postalCode: BUSINESS_INFO.pincodePrimary,
       addressCountry: 'IN'
     },
     geo: { '@type': 'GeoCoordinates', latitude: BUSINESS_INFO.coordinates.lat, longitude: BUSINESS_INFO.coordinates.lng },
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
-    areaServed: ['Erode', 'Tiruppur', 'Coimbatore', 'Salem', 'Tamil Nadu'],
-    priceRange: '₹₹'
-  };
-}
-
-export function generateCourseSchema(course: any, location: string) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Course',
-    name: `${course.name} in ${location}`,
-    description: course.description,
-    provider: { '@type': 'Organization', name: BUSINESS_INFO.shortName, sameAs: 'https://winoratech.com' },
-    hasCourseInstance: {
-      '@type': 'CourseInstance',
-      courseMode: 'onsite',
-      location: { '@type': 'Place', name: `${BUSINESS_INFO.shortName}, ${location}`, address: { '@type': 'PostalAddress', addressLocality: location, addressRegion: 'Tamil Nadu' } }
-    },
-    educationalLevel: course.level,
-    timeRequired: course.duration,
-    teaches: course.technologies
+    areaServed: ['Bhavani', 'Tiruchengode', 'Erode', 'Tiruppur', 'Coimbatore', 'Salem', 'Tamil Nadu', 'India'],
+    priceRange: '$$'
   };
 }
 

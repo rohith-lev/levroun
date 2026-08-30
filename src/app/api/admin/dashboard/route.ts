@@ -11,58 +11,14 @@ export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  await connectDB();
+  try {
+    await connectDB();
 
-  const now = new Date();
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const last7Days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const last7Days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
-  const [
-    totalVisitors,
-    todayVisitors,
-    uniqueVisitors,
-    totalContacts,
-    unreadContacts,
-    activePopups,
-    infraSections,
-    recentContacts,
-    // 7-day daily breakdown
-    dailyVisitors,
-    topPages,
-    deviceStats,
-  ] = await Promise.all([
-    Visitor.countDocuments(),
-    Visitor.countDocuments({ visitedAt: { $gte: todayStart } }),
-    Visitor.distinct('sessionId').then((ids) => ids.length),
-    Contact.countDocuments(),
-    Contact.countDocuments({ status: 'unread' }),
-    PopupCampaign.countDocuments({ isActive: true }),
-    InfrastructureContent.countDocuments({ isVisible: true }),
-    Contact.find().sort({ submittedAt: -1 }).limit(5).lean(),
-    Visitor.aggregate([
-      { $match: { visitedAt: { $gte: last7Days } } },
-      {
-        $group: {
-          _id: {
-            $dateToString: { format: '%Y-%m-%d', date: '$visitedAt' },
-          },
-          count: { $sum: 1 },
-        },
-      },
-      { $sort: { _id: 1 } },
-    ]),
-    Visitor.aggregate([
-      { $group: { _id: '$page', count: { $sum: 1 } } },
-      { $sort: { count: -1 } },
-      { $limit: 5 },
-    ]),
-    Visitor.aggregate([
-      { $group: { _id: '$deviceType', count: { $sum: 1 } } },
-    ]),
-  ]);
-
-  return NextResponse.json({
-    stats: {
+    const [
       totalVisitors,
       todayVisitors,
       uniqueVisitors,
@@ -70,12 +26,76 @@ export async function GET() {
       unreadContacts,
       activePopups,
       infraSections,
-    },
-    charts: {
+      recentContacts,
       dailyVisitors,
       topPages,
       deviceStats,
-    },
-    recentContacts,
-  });
+    ] = await Promise.all([
+      Visitor.countDocuments().catch(() => 0),
+      Visitor.countDocuments({ visitedAt: { $gte: todayStart } }).catch(() => 0),
+      Visitor.distinct('sessionId').then((ids) => ids.length).catch(() => 0),
+      Contact.countDocuments().catch(() => 0),
+      Contact.countDocuments({ status: 'unread' }).catch(() => 0),
+      PopupCampaign.countDocuments({ isActive: true }).catch(() => 0),
+      InfrastructureContent.countDocuments({ isVisible: true }).catch(() => 0),
+      Contact.find().sort({ submittedAt: -1 }).limit(5).lean().catch(() => []),
+      Visitor.aggregate([
+        { $match: { visitedAt: { $gte: last7Days } } },
+        {
+          $group: {
+            _id: {
+              $dateToString: { format: '%Y-%m-%d', date: '$visitedAt' },
+            },
+            count: { $sum: 1 },
+          },
+        },
+        { $sort: { _id: 1 } },
+      ]).catch(() => []),
+      Visitor.aggregate([
+        { $group: { _id: '$page', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 5 },
+      ]).catch(() => []),
+      Visitor.aggregate([
+        { $group: { _id: '$deviceType', count: { $sum: 1 } } },
+      ]).catch(() => []),
+    ]);
+
+    return NextResponse.json({
+      stats: {
+        totalVisitors,
+        todayVisitors,
+        uniqueVisitors,
+        totalContacts,
+        unreadContacts,
+        activePopups,
+        infraSections,
+      },
+      charts: {
+        dailyVisitors,
+        topPages,
+        deviceStats,
+      },
+      recentContacts,
+    });
+  } catch (err) {
+    console.error('Error fetching admin dashboard stats:', err);
+    return NextResponse.json({
+      stats: {
+        totalVisitors: 0,
+        todayVisitors: 0,
+        uniqueVisitors: 0,
+        totalContacts: 0,
+        unreadContacts: 0,
+        activePopups: 0,
+        infraSections: 0,
+      },
+      charts: {
+        dailyVisitors: [],
+        topPages: [],
+        deviceStats: [],
+      },
+      recentContacts: [],
+    });
+  }
 }

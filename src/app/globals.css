@@ -3,9 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+  }
+
   body {
-    @apply bg-background text-foreground antialiased selection:bg-orange-500 selection:text-white;
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
     font-family: var(--font-inter), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #3b82f6;
+    color: white;
   }
 }
 
@@ -19,15 +32,43 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar for premium feel */
+/* Premium light-mode scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
-
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-200 rounded-full border-4 border-background hover:bg-gray-400 transition-colors;
+/* Pure CSS Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Smooth page transitions */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Grid pattern helper */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+  background-size: 48px 48px;
 }

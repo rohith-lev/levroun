@@ -5,8 +5,8 @@ import AdminSessionProvider from '@/components/admin/AdminSessionProvider';
 import AdminShell from '@/components/admin/AdminShell';
 
 export const metadata: Metadata = {
-  title: 'Admin CMS | Winora Tech Academy',
-  description: 'Winora Admin Panel',
+  title: 'Admin CMS | Inzovate Technologies',
+  description: 'Inzovate Technologies Admin Panel',
 };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

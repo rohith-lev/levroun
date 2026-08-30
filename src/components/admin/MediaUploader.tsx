@@ -3,7 +3,6 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface Props {
   onUpload: (url: string) => void;
@@ -89,34 +88,21 @@ export default function MediaUploader({
         </div>
       </div>
 
-      <AnimatePresence>
-        {preview && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="relative w-full h-40 rounded-xl overflow-hidden border border-white/10"
+      {preview && (
+        <div className="relative w-full h-40 rounded-xl overflow-hidden border border-white/10 transition-all duration-200">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+          <button
+            onClick={() => setPreview(null)}
+            className="absolute top-2 right-2 p-1 rounded-md bg-black/60 text-white hover:bg-black/80"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={preview} alt="Preview" className="w-full h-full object-cover" />
-            <button
-              onClick={() => setPreview(null)}
-              className="absolute top-2 right-2 p-1 rounded-md bg-black/60 text-white hover:bg-black/80"
-            >
-              <X className="w-3 h-3" />
-            </button>
-          </motion.div>
-        )}
-        {error && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-xs text-red-400 px-1"
-          >
-            {error}
-          </motion.p>
-        )}
-      </AnimatePresence>
+            <X className="w-3 h-3" />
+          </button>
+        </div>
+      )}
+      {error && (
+        <p className="text-xs text-red-400 px-1 transition-opacity duration-200">{error}</p>
+      )}
     </div>
   );
 }

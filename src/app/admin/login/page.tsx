@@ -30,7 +30,8 @@ export default function AdminLoginPage() {
     if (result?.error) {
       setError('Invalid email or password. Please try again.');
     } else {
-      router.push('/admin/dashboard');
+      // Hard redirect to ensure session cookie is committed before page loads
+      window.location.href = '/admin/dashboard';
     }
   }
 
@@ -67,7 +68,7 @@ export default function AdminLoginPage() {
             <GraduationCap className="w-6 h-6 text-white" />
           </motion.div>
           <h1 className="text-xl font-bold text-white">Admin Portal</h1>
-          <p className="text-sm text-slate-500 mt-1">Winora Tech Academy CMS</p>
+          <p className="text-sm text-slate-500 mt-1">Inzovate Technologies CMS</p>
         </div>
 
         {/* Card */}
@@ -93,7 +94,7 @@ export default function AdminLoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@winora.com"
+                placeholder="admin@inzovate.com"
                 required
                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/30 transition-all"
               />
@@ -143,7 +144,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="text-center text-xs text-slate-600 mt-6">
-          Protected admin area · Winora Tech Academy
+          Protected admin area · Inzovate Technologies
         </p>
       </motion.div>
     </div>

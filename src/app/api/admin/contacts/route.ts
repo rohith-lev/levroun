@@ -24,34 +24,39 @@ export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  await connectDB();
+  try {
+    await connectDB();
 
-  const { searchParams } = new URL(req.url);
-  const search = searchParams.get('search') ?? '';
-  const status = searchParams.get('status') ?? '';
-  const page = parseInt(searchParams.get('page') ?? '1');
-  const limit = parseInt(searchParams.get('limit') ?? '20');
+    const { searchParams } = new URL(req.url);
+    const search = searchParams.get('search') ?? '';
+    const status = searchParams.get('status') ?? '';
+    const page = parseInt(searchParams.get('page') ?? '1');
+    const limit = parseInt(searchParams.get('limit') ?? '20');
 
-  const query: Record<string, unknown> = {};
-  if (search) {
-    query.$or = [
-      { name: { $regex: search, $options: 'i' } },
-      { email: { $regex: search, $options: 'i' } },
-      { message: { $regex: search, $options: 'i' } },
-    ];
+    const query: Record<string, unknown> = {};
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { message: { $regex: search, $options: 'i' } },
+      ];
+    }
+    if (status === 'read' || status === 'unread') query.status = status;
+
+    const [contacts, total] = await Promise.all([
+      Contact.find(query)
+        .sort({ submittedAt: -1 })
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .lean(),
+      Contact.countDocuments(query),
+    ]);
+
+    return NextResponse.json({ contacts, total, page, limit });
+  } catch (err) {
+    console.error('[Contact GET]', err);
+    return NextResponse.json({ contacts: [], total: 0, page: 1, limit: 20 });
   }
-  if (status === 'read' || status === 'unread') query.status = status;
-
-  const [contacts, total] = await Promise.all([
-    Contact.find(query)
-      .sort({ submittedAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .lean(),
-    Contact.countDocuments(query),
-  ]);
-
-  return NextResponse.json({ contacts, total, page, limit });
 }
 
 // POST - public submit contact form

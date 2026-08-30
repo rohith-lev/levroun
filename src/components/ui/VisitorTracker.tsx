@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation';
 
 function getOrCreateSessionId(): string {
   try {
-    let id = sessionStorage.getItem('winora_session');
+    let id = sessionStorage.getItem('inzovate_session');
     if (!id) {
       id = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-      sessionStorage.setItem('winora_session', id);
+      sessionStorage.setItem('inzovate_session', id);
     }
     return id;
   } catch {

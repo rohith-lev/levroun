@@ -24,7 +24,27 @@ const TYPE_ACCENT: Record<string, string> = {
   discount: 'from-emerald-600 to-emerald-500',
 };
 
-const STORAGE_KEY = 'winora_popup_seen';
+// Allowlist of safe URL origins for CTA links
+const ALLOWED_ORIGINS = ['https://levroun.com', 'http://localhost:3000'];
+
+
+function safeCTAUrl(url: string): string {
+  if (!url) return '/contact';
+  if (url.startsWith('/') || url.startsWith('#')) return url;
+  try {
+    const parsed = new URL(url, 'https://levroun.com');
+
+    if (ALLOWED_ORIGINS.some(o => parsed.origin === new URL(o).origin)) {
+      return parsed.pathname + parsed.search + parsed.hash;
+    }
+    return '/contact';
+  } catch {
+    return '/contact';
+  }
+}
+
+const STORAGE_KEY = 'levroun_popup_seen';
+
 
 function shouldShow(popup: Popup): boolean {
   if (popup.frequency === 'always') return true;
@@ -133,8 +153,9 @@ export default function PopupBanner() {
 
           <div className="flex gap-3">
             <a
-              href={popup.ctaUrl}
+              href={safeCTAUrl(popup.ctaUrl)}
               className={`flex-1 text-center py-3 rounded-xl bg-gradient-to-r ${accent} text-white text-sm font-bold hover:opacity-90 transition-opacity`}
+              rel="noopener noreferrer"
             >
               {popup.ctaText}
             </a>
