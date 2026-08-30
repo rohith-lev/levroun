@@ -15,9 +15,7 @@ const navLinks = [
   { name: 'Home', href: '/', icon: Home, badge: null },
   { name: 'Services', href: '/services', icon: Cpu, badge: 'AI & Cloud' },
   { name: 'Products', href: '/products', icon: Layers, badge: 'SaaS Suite' },
-  { name: 'Infrastructure & Insights', href: '/infrastructure', icon: Server, badge: 'Enterprise' },
   { name: 'About Us', href: '/about', icon: Info, badge: null },
-  { name: 'Partners & Collaborations', href: '/partners', icon: Handshake, badge: 'Strategic' },
 ];
 
 export default function FloatingNavbar() {

@@ -12,9 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/services`,    lastModified: now, changeFrequency: 'weekly',  priority: 0.95 },
     { url: `${BASE_URL}/products`,    lastModified: now, changeFrequency: 'weekly',  priority: 0.95 },
     { url: `${BASE_URL}/tech-stack`,     lastModified: now, changeFrequency: 'weekly',  priority: 0.9  },
-    { url: `${BASE_URL}/infrastructure`, lastModified: now, changeFrequency: 'weekly',  priority: 0.95 },
     { url: `${BASE_URL}/about`,       lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${BASE_URL}/partners`,    lastModified: now, changeFrequency: 'weekly',  priority: 0.9  },
   ];
 
   // Service × Location pages

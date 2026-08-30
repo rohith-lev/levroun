@@ -54,9 +54,7 @@ const navPills = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
   { name: 'Products', href: '/products' },
-  { name: 'Infrastructure & Insights', href: '/infrastructure' },
   { name: 'About Us', href: '/about' },
-  { name: 'Partners & Collaborations', href: '/partners' },
   { name: 'Contact Us', href: '/#contact' },
 ];
 
